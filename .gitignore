@@ -1,0 +1,5 @@
+.DS_Store
+
+# Never commit real application data. The profile lives at ~/.claude/apply-profile.md.
+apply-profile.md
+*.local.md
