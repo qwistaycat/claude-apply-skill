@@ -43,7 +43,7 @@ do not want in a public git history.
 | `references/profile-template.md` | The blank profile to copy and fill in |
 | `references/ats-recipes.md` | Per-ATS fill recipes: Ashby, Greenhouse, Lever, Gem, Workable, Phenom, Pinpoint, Avature, iCIMS, Workday, Indeed |
 | `references/sheet-io.md` | Reading, writing, and verifying a Google Sheets tracker through a logged-in browser, plus Drive uploads |
-| `references/resume-tailoring.md` | The three-part scoring rubric and the LaTeX build |
+| `references/resume-tailoring.md` | The three-part scoring rubric, the LaTeX build, and the PDF-only path |
 | `references/field-values.md` | Which profile key goes in which form field |
 
 ## What it does not do
@@ -62,7 +62,9 @@ rubric; anything it cannot verify as true, it asks about instead of softening.
   profile already signed in to Google
 - A Google Sheets tracker with the column layout described in `SKILL.md`
 - A Google Drive folder for tailored resumes
-- `pdflatex`, if the base resume is LaTeX
+- A base resume, as either LaTeX source (`RESUME_TEX`) or a text-based PDF (`RESUME_PDF`).
+  `pdflatex` is needed for LaTeX. LaTeX source gives the most faithful tailored copies; a
+  PDF is rebuilt from its extracted text
 
 ## License
 
