@@ -2,11 +2,32 @@
 
 ## Source of truth
 
-`<RESUME_TEX>` from the profile. **Read only.** Never edit it, never commit to its repo.
-Copy it into a scratch directory per role and tailor there.
+The profile supplies the base resume as one of two keys. **Read only** either way. Never
+edit it, never commit to its repo. Copy it into a scratch directory per role and tailor
+there.
 
-A local `pdflatex` build should reproduce the original PDF pixel-identically. Verify that
-once before trusting tailored variants.
+- `<RESUME_TEX>`: LaTeX source. Preferred when available, because edits keep the original
+  layout exactly. If both keys are set, use this one.
+- `<RESUME_PDF>`: a PDF with no source. Use when `<RESUME_TEX>` is empty.
+
+With `<RESUME_TEX>`, a local `pdflatex` build should reproduce the original PDF
+pixel-identically. Verify that once before trusting tailored variants.
+
+With `<RESUME_PDF>`, a PDF cannot be edited faithfully in place, so tailoring means
+rebuilding it:
+
+1. Extract the text (`pdftotext -layout`) and render page images (`pdftoppm -r 100 -png`).
+   Read both: the text for exact wording, the images for layout, fonts, and section order.
+2. Write the content to a scratch source file (HTML or LaTeX) that matches the original
+   layout as closely as you can, and render it to PDF.
+3. Do this once for the base and compare it to the original page by page. Confirm nothing
+   was dropped (employers, dates, titles, links, education) and it still fits the same page
+   count before trusting tailored variants. Reuse that scratch source for each role.
+4. If extraction is garbled (scanned or image-only PDF), stop and ask for a text-based PDF
+   or the source. Do not retype a resume from a guess.
+
+Treat the extracted text as the base for the truthfulness bar below, exactly as the `.tex`
+would be.
 
 Output: `<RESUME_OUT_DIR>/<RESUME_FILENAME>`.
 
@@ -30,7 +51,8 @@ it does not move the score.
 
 ## The truthfulness bar
 
-Every rewritten claim must remain literally true against the base resume and the profile's
+Every rewritten claim must remain literally true against the base resume (the `.tex` or the
+PDF text) and the profile's
 **Confirmed resume facts** section. Rewrite for emphasis, framing, and vocabulary. Do not
 invent numbers, scope, seniority, or outcomes.
 
@@ -41,7 +63,8 @@ the answer arrives, add it to the profile's confirmed-facts list so the next run
 ## Building the PDF
 
 Builds are independent, so run the whole batch in parallel in the background rather than
-one per application.
+one per application. The LaTeX notes below apply only on the `<RESUME_TEX>` path, or if you
+chose LaTeX to rebuild a PDF-only resume.
 
 TinyTeX gotcha, if the environment uses it: the `ls-R` index files can be root-owned and
 stale, so `kpsewhich` cannot see newly installed packages and `tlmgr` cannot refresh them.

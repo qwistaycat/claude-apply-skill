@@ -85,7 +85,8 @@ Canonical employer names and titles, used to repair ATS resume-parser output.
 | DRIVE_FOLDER_ID | from the Drive folder URL |
 | DRIVE_FOLDER_NAME | |
 | GOOGLE_ACCOUNT | include the browser account index, e.g. u/2 |
-| RESUME_TEX | path to the base resume source, treated as read only |
+| RESUME_TEX | path to the base LaTeX resume source, treated as read only. Optional if `RESUME_PDF` is set |
+| RESUME_PDF | path to the base resume as a PDF, treated as read only. Used when there is no LaTeX source; ignored if `RESUME_TEX` is set |
 | RESUME_OUT_DIR | where tailored PDFs are written |
 | RESUME_FILENAME | naming pattern, e.g. "Name - Resume - <Company>.pdf" |
 
